@@ -217,11 +217,11 @@
         ];
         
         // State
-        let currentDate = new Date(); // The date currently being viewed/edited
-        let displayedMonth = new Date(); // The month shown in calendar
-        let chartInstance = null;
         const today = new Date(); // Current date as baseline, no time component
         today.setHours(0, 0, 0, 0);
+        let currentDate = new Date(today); // The date currently being viewed/edited, set to today by default
+        let displayedMonth = new Date(); // The month shown in calendar
+        let chartInstance = null;
 
         // Mock Storage (In a real app, this would be localStorage or a database)
         // Structure: { "YYYY-MM-DD": { score: number, completedTasks: ['id1', 'id2'] } }
