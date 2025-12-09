@@ -3,6 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 自定义应用名称（优先于 <title>） -->
+    <meta name="apple-mobile-web-app-title" content="成长日历">
+    <!-- 自定义应用图标（支持多种尺寸） -->
+    <link rel="apple-touch-icon" href="apple-touch-icon-180.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="apple-touch-icon-120.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="apple-touch-icon-167.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-180.png">
+    <!-- 全屏模式 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- 状态栏样式（黑色半透明） -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="shortcut icon" href="favicon.ico">
     <title>小小英雄成长日历 - 每日积分记录</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -79,9 +91,10 @@
         
         <!-- Header Section -->
         <header class="text-center mb-8">
-            <h1 class="text-3xl md:text-4xl font-bold text-orange-600 mb-2">🌟 小小英雄成长日历</h1>
+            <img class="mx-auto" src="apple-touch-icon-120.png" width="80" height="80">
+            <h1 class="text-3xl md:text-4xl font-bold text-orange-600 mb-2">小小英雄成长日历</h1>
             <p class="text-stone-500 max-w-xl mx-auto">
-                欢迎来到你的每日挑战！这里记录着你每天的进步。完成5项挑战，每天最高可得 <span class="font-bold text-orange-600">10分</span>。坚持下去，积攒积分换取奖励吧！
+                欢迎来到Sunny的每日挑战！这里记录着Sunny每天的进步。完成9项挑战，每天最高可得 <span class="font-bold text-orange-600">10分</span>。坚持下去，积攒积分换取奖励吧！
             </p>
         </header>
 
@@ -112,7 +125,7 @@
                 <div class="absolute top-0 left-0 w-full h-2 bg-orange-400"></div>
                 
                 <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-xl font-bold text-stone-700">📝 今日挑战清单</h2>
+                    <h2 class="text-xl font-bold text-stone-700">📝 今日挑战</h2>
                     <span id="current-date-display" class="text-sm font-medium text-stone-400 bg-stone-100 px-3 py-1 rounded-full"></span>
                 </div>
 
@@ -205,12 +218,12 @@
         
         // 1. Configuration & Data
         const TASKS = [
-            { id: 'skill1', text: '技能学习：阅读', icon: '📖', desc: '阅读', points: 1 },
-            { id: 'skill2', text: '技能学习：画画', icon: '🖌', desc: '画画', points: 1 },
-            { id: 'skill3', text: '技能学习：练琴', icon: '🎹', desc: '练琴', points: 1 },
-            { id: 'housework1', text: '帮助做家务：扫地', icon: '🧹', desc: '扫地', points: 1 },
-            { id: 'housework2', text: '帮助做家务：擦桌子', icon: '🪑', desc: '擦桌子', points: 1 },
-            { id: 'housework3', text: '帮助做家务：洗碗', icon: '🥣', desc: '洗碗', points: 1 },
+            { id: 'skill1', text: '学习：阅读', icon: '📖', desc: '学习阅读', points: 1 },
+            { id: 'skill2', text: '学习：画画', icon: '🎨', desc: '学习画画', points: 1 },
+            { id: 'skill3', text: '学习：练琴', icon: '🎹', desc: '学习练琴', points: 1 },
+            { id: 'housework1', text: '做家务：扫地', icon: '🧹', desc: '帮大人扫地', points: 1 },
+            { id: 'housework2', text: '做家务：擦桌子', icon: '🪑', desc: '帮大人擦桌子', points: 1 },
+            { id: 'housework3', text: '做家务：洗碗', icon: '🥣', desc: '帮大人洗碗', points: 1 },
             { id: 'self', text: '自己的事自己做', icon: '👕', desc: '穿衣、洗漱、整理书包', points: 2 },
             { id: 'toys', text: '整理好玩具', icon: '🧸', desc: '玩完玩具放回原处', points: 1 },
             { id: 'sleep', text: '按时睡觉', icon: '🌙', desc: '晚上9:00前上床休息', points: 1 }
@@ -253,7 +266,7 @@
             return d1.getFullYear() === d2.getFullYear() &&
                    d1.getMonth() === d2.getMonth() &&
                    d1.getDate() === d2.getDate();
-        }
+          }
 
         function getDailyTotal(dateKey) {
             return scoreData[dateKey]?.score || 0;
@@ -345,7 +358,7 @@
             
             // Update Date Display
             document.getElementById('current-date-display').innerText = isSameDay(currentDate, new Date()) 
-                ? `今天, ${formatDateDisplay(currentDate)}` 
+                ? ` ${formatDateDisplay(currentDate)}` 
                 : formatDateDisplay(currentDate);
         }
 
@@ -535,14 +548,15 @@
             const labels = [];
             const dataPoints = [];
             
-            // Show last 10 days ending at today for trend analysis
+            // Show last 7 days ending at today for trend analysis
             const endD = new Date(); // Always anchor chart to real today for "Growth"
             const startD = new Date();
-            startD.setDate(endD.getDate() - 9);
+            startD.setDate(endD.getDate() - 7);
+            endD.setDate(endD.getDate() - 1);
 
             for (let d = new Date(startD); d <= endD; d.setDate(d.getDate() + 1)) {
                 const key = formatDateKey(d);
-                labels.push(`${d.getMonth()+1}/${d.getDate()}`);
+                labels.push(`${d.getMonth()+1}/${d.getDate() + 1}`);
                 dataPoints.push(getDailyTotal(key));
             }
 
@@ -585,7 +599,7 @@
                         y: {
                             beginAtZero: true,
                             max: 10,
-                            ticks: { stepSize: 2 },
+                            ticks: { stepSize: 1 },
                             grid: { color: '#f5f5f4' }
                         },
                         x: {
