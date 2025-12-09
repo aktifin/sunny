@@ -477,7 +477,7 @@
                 cell.innerHTML = `
                     <div class="flex flex-col items-center justify-center w-full h-full">
                         <span class="text-lg font-medium">${day}</span>
-                        ${score !== null ? `<span class="text-xs font-bold opacity-95 bg-white/20 px-1.5 py-0.5 rounded-full backdrop-blur-sm">${score}</span>` : ''}
+                        ${score !== null && score > 0 ? `<span class="text-xs font-bold opacity-95 bg-white/20 px-1.5 py-0.5 rounded-full backdrop-blur-sm">${score}</span>` : ''}
                         ${isToday && score === null ? '<span class="w-1.5 h-1.5 bg-orange-500 rounded-full absolute bottom-2"></span>' : ''}
                     </div>
                 `;
