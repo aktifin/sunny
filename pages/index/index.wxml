@@ -8,7 +8,7 @@
             <image class="mx-auto" src="/apple-touch-icon-120.png" style="width: 80px; height: 80px;"></image>
             <view class="text-3xl font-bold text-orange-600 mb-2">小小英雄成长日历</view>
             <text class="text-stone-500 max-w-xl mx-auto">
-                欢迎来到Sunny的每日挑战！这里记录着Sunny每天的进步。完成9项挑战，每天最高可得 <text class="font-bold text-orange-600">10分</text>。坚持下去，积攒积分换取奖励吧！
+                欢迎来到小英雄的每日挑战！这里记录着你每天的进步。完成9项挑战，每天最高可得 <text class="font-bold text-orange-600">10分</text>。坚持下去，积攒积分换取奖励吧！
             </text>
         </view>
 
@@ -148,6 +148,7 @@
                 <view class="flex items-center gap-1"><view class="w-3 h-3 rounded-full bg-green-500"></view> 满分<br/>(10)</view>
                 <view class="flex items-center gap-1"><view class="w-3 h-3 rounded-full bg-blue-400"></view> 优秀 <br/>(6-9)</view>
                 <view class="flex items-center gap-1"><view class="w-3 h-3 rounded-full bg-orange-300"></view> 加油<br/> (1-5)</view>
+                <view class="flex items-center gap-1"><view class="w-3 h-3 rounded-full bg-stone-100 border border-stone-200"></view> 无记录</view>
             </view>
             <view class="left-0 w-full h-8"></view>
             <view class="left-0 w-full h-4"></view>

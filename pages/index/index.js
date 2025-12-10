@@ -6,12 +6,12 @@ Page({
   data: {
     // 任务列表
     tasks: [
-      { id: 'skill1', icon: '📖', text: '学习：阅读', desc: '学习阅读', points: 1 },
-      { id: 'skill2', icon: '🎨', text: '学习：画画', desc: '学习画画', points: 1 },
-      { id: 'skill3', icon: '🎹', text: '学习：练琴', desc: '学习练琴', points: 1 },
-      { id: 'housework1', icon: '🧹', text: '做家务：扫地', desc: '帮大人扫地', points: 1 },
-      { id: 'housework2', icon: '🪑', text: '做家务：擦桌子', desc: '帮大人擦桌子', points: 1 },
-      { id: 'housework3', icon: '🥣', text: '做家务：洗碗', desc: '帮大人洗碗', points: 1 },
+      { id: 'skill1', icon: '📖', text: '学习技能1项', desc: '学习阅读、画画、练琴', points: 1 },
+      { id: 'skill2', icon: '🎨', text: '学习技能1项', desc: '学习阅读、画画、练琴', points: 1 },
+      { id: 'skill3', icon: '🎹', text: '学习技能1项', desc: '学习阅读、画画、练琴', points: 1 },
+      { id: 'housework1', icon: '🧹', text: '做家务1项', desc: '帮大人扫地、擦桌子、洗碗', points: 1 },
+      { id: 'housework2', icon: '🪑', text: '做家务1项', desc: '帮大人扫地、擦桌子、洗碗', points: 1 },
+      { id: 'housework3', icon: '🥣', text: '做家务1项', desc: '帮大人扫地、擦桌子、洗碗', points: 1 },
       { id: 'self', icon: '👕', text: '自己的事自己做', desc: '穿衣、洗漱、整理书包', points: 2 },
       { id: 'toys', icon: '🧸', text: '整理好玩具', desc: '玩完玩具放回原处', points: 1 },
       { id: 'sleep', icon: '🌙', text: '按时睡觉', desc: '晚上9:00前上床休息', points: 1 }
@@ -42,11 +42,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    // 初始化当前日期
+    // 初始化当前日期，只包含日期部分，不包含时间部分
     const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     this.setData({
-      currentDate: now,
-      viewDate: now
+      currentDate: today,
+      viewDate: today
     });
     
     // 加载数据
@@ -95,8 +96,9 @@ Page({
     // 获取日期键
     const dateKey = this.formatDateKey(currentDate);
     
-    // 检查是否为未来日期
+    // 检查是否为未来日期 - 只比较日期部分，不比较时间部分
     const now = new Date();
+    now.setHours(0, 0, 0, 0);
     const isFutureDate = currentDate > now;
     this.setData({
       isFutureDate: isFutureDate
@@ -295,22 +297,46 @@ Page({
       const date = new Date(year, month, day);
       const isToday = this.isToday(date);
       const score = this.getScoreForDate(dateKey);
-      const isFutureDate = date > new Date();
       
-      // 根据得分设置颜色
-      let cellClass = 'bg-white text-stone-700';
+      // 只比较日期部分，不比较时间部分
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const isFutureDate = date > today;
+      
+      // 检查是否为选中日期 - 使用日期字符串比较，避免时区和时间问题
+      const selectedDateKey = this.formatDateKey(this.data.currentDate);
+      const isSelected = dateKey === selectedDateKey;
+      
+      // 根据得分设置颜色 - 与index.html图例一致
+      let cellClass = '';
       if (isToday) {
-        cellClass += ' border-2 border-orange-500 shadow-sm';
-      } else if (score === 10) {
-        cellClass += ' bg-green-50';
-      } else if (score >= 6 && score <= 8) {
-        cellClass += ' bg-blue-50';
-      } else if (score >= 1 && score <= 5) {
-        cellClass += ' bg-orange-50';
-      } else if (score === 0) {
-        cellClass += ' bg-stone-50 text-stone-300';
+        cellClass += ' font-bold ';
+        if (score === null) {
+          cellClass += 'bg-stone-100 border border-stone-200 text-stone-500';
+        } else if (score === 10) {
+          cellClass += 'bg-green-500 text-white';
+        } else if (score >= 6 && score <= 9) {
+          cellClass += 'bg-blue-400 text-white';
+        } else if (score >= 1 && score <= 5) {
+          cellClass += 'bg-orange-300 text-white';
+        } else {
+          cellClass += 'bg-stone-100 border border-stone-200 text-stone-500';
+        }
       } else {
-        cellClass += ' bg-stone-50';
+        if (score === 10) {
+          cellClass += 'bg-green-500 text-white';
+        } else if (score >= 6 && score <= 9) {
+          cellClass += 'bg-blue-400 text-white';
+        } else if (score >= 1 && score <= 5) {
+          cellClass += 'bg-orange-300 text-white';
+        } else {
+          cellClass += 'bg-stone-100 border border-stone-200 text-stone-500';
+        }
+      }
+      
+      // 添加选中日期的红色高亮描边
+      if (isSelected && !isFutureDate) {
+        cellClass += ' ring-4 ring-red-500 ring-offset-2 z-10';
       }
       
       calendarDays.push({
@@ -379,6 +405,18 @@ Page({
     return date.getFullYear() === today.getFullYear() &&
            date.getMonth() === today.getMonth() &&
            date.getDate() === today.getDate();
+  },
+
+  /**
+   * 检查两个日期是否相同
+   */
+  isSameDate(date1, date2) {
+    if (!date1 || !date2) {
+      return false;
+    }
+    return date1.getFullYear() === date2.getFullYear() &&
+           date1.getMonth() === date2.getMonth() &&
+           date1.getDate() === date2.getDate();
   },
 
   /**
@@ -460,167 +498,159 @@ Page({
    */
   setViewDate(e) {
     const dateKey = e.currentTarget.dataset.date;
-    const date = new Date(dateKey);
+    // 解析日期时确保使用本地时间，而不是UTC时间
+    const [year, month, day] = dateKey.split('-').map(Number);
+    const date = new Date(year, month - 1, day);
     
-    this.setData({
-      viewDate: date
-    });
+    // Only allow viewing/editing dates up to today
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
     
-    this.generateCalendar();
+    if (date <= today) {
+      this.setData({
+        currentDate: date,
+        viewDate: date
+      });
+      
+      // 更新数据和UI
+      this.loadData();
+      this.generateCalendar();
+      this.drawChart();
+    }
   },
 
   /**
    * 绘制积分增长曲线
    */
   drawChart() {
-    // 使用最新的Canvas 2D API获取上下文
-    const query = wx.createSelectorQuery();
-    query.select('#growthChart').fields({ node: true, size: true });
-    query.exec((res) => {
-      if (!res || !res[0]) {
-        console.error('Canvas元素获取失败');
-        return;
-      }
-      
-      const canvas = res[0].node;
-      const ctx = canvas.getContext('2d');
-      const width = res[0].width;
-      const height = res[0].height;
-      
-      // 设置Canvas尺寸
-      canvas.width = width;
-      canvas.height = height;
-      
-      // 清空画布
-      ctx.clearRect(0, 0, width, height);
-      
-      // 获取最近7天的数据
-      const chartData = this.getChartData(7);
-      
-      // 转换数据，确保日期格式正确
-      const processedData = chartData.map(item => {
-        return {
-          date: item.date,
-          score: item.score || 0
-        };
-      });
-      
-      // 如果没有数据，显示提示
-      if (processedData.length === 0) {
-        // 绘制提示文字
-        ctx.fillStyle = '#6b7280';
-        ctx.font = '14px sans-serif';
-        ctx.textAlign = 'center';
-        ctx.fillText('暂无数据', width / 2, height / 2);
-        return;
-      }
-      
-      // 设置图表边距
-      const margin = 30;
-      const chartWidth = width - margin * 2;
-      const chartHeight = height - margin * 2;
-      
-      // 设置坐标轴样式
-      ctx.strokeStyle = '#e5e7eb';
-      ctx.lineWidth = 1;
-      
-      // 绘制坐标轴
-      ctx.beginPath();
-      ctx.moveTo(margin, margin);
-      ctx.lineTo(margin, height - margin);
-      ctx.lineTo(width - margin, height - margin);
-      ctx.stroke();
-      
-      // 绘制网格线
-      ctx.strokeStyle = '#f3f4f6';
-      ctx.lineWidth = 0.5;
-      for (let i = 0; i <= 10; i += 2) {
-        const y = margin + (10 - i) / 10 * chartHeight;
+    console.log('开始绘制积分增长曲线');
+    
+    try {
+      // 对于type="2d"的canvas，需要使用新的Canvas 2D API
+      const query = wx.createSelectorQuery();
+      query.select('#growthChart').fields({ node: true, size: true });
+      query.exec((res) => {
+        if (!res || !res[0]) {
+          console.error('Canvas元素获取失败');
+          return;
+        }
+        
+        console.log('获取Canvas元素成功', res[0]);
+        
+        const canvas = res[0].node;
+        const ctx = canvas.getContext('2d');
+        const width = res[0].width;
+        const height = res[0].height;
+        
+        // 设置Canvas尺寸
+        canvas.width = width;
+        canvas.height = height;
+        
+        console.log('Canvas尺寸:', width, height);
+        
+        // 清空画布
+        ctx.clearRect(0, 0, width, height);
+        
+        // 绘制背景
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, width, height);
+        
+        // 绘制一个简单的图表
+        const chartData = this.getChartData(7);
+        
+        // 如果没有数据，显示提示
+        if (chartData.length === 0) {
+          ctx.fillStyle = '#6b7280';
+          ctx.font = '14px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText('暂无数据', width / 2, height / 2);
+          console.log('绘制提示文字');
+          return;
+        }
+        
+        console.log('图表数据:', chartData);
+        
+        // 设置图表边距
+        const margin = 40;
+        const chartWidth = width - margin * 2;
+        const chartHeight = height - margin * 2;
+        const pointSpacing = chartWidth / (chartData.length - 1);
+        
+        // 绘制坐标轴
+        ctx.strokeStyle = '#e5e7eb';
+        ctx.lineWidth = 1;
+        
+        // 绘制X轴和Y轴
         ctx.beginPath();
-        ctx.moveTo(margin, y);
-        ctx.lineTo(width - margin, y);
+        // Y轴
+        ctx.moveTo(margin, margin);
+        ctx.lineTo(margin, height - margin);
+        // X轴
+        ctx.lineTo(width - margin, height - margin);
         ctx.stroke();
         
-        // 绘制刻度标签
-        ctx.fillStyle = '#6b7280';
-        ctx.font = '10px sans-serif';
-        ctx.textAlign = 'right';
-        ctx.fillText(i.toString(), margin - 5, y + 4);
-      }
-      
-      // 绘制填充区域
-      ctx.fillStyle = 'rgba(59, 130, 246, 0.1)';
-      ctx.beginPath();
-      ctx.moveTo(margin, height - margin);
-      
-      const pointSpacing = chartWidth / (processedData.length - 1);
-      
-      // 绘制填充区域
-      processedData.forEach((item, index) => {
-        const x = margin + index * pointSpacing;
-        const y = margin + (10 - item.score) / 10 * chartHeight;
+        // 绘制水平横线（网格线）
+        ctx.strokeStyle = '#f3f4f6';
+        ctx.lineWidth = 0.5;
         
-        if (index === 0) {
-          ctx.moveTo(x, y);
-        } else {
-          ctx.lineTo(x, y);
+        // 绘制10条横线，代表0-10分
+        for (let i = 0; i <= 10; i++) {
+          const y = margin + i / 10 * chartHeight;
+          ctx.beginPath();
+          ctx.moveTo(margin, y);
+          ctx.lineTo(width - margin, y);
+          ctx.stroke();
+          
+          // 绘制Y轴刻度标签
+          ctx.fillStyle = '#6b7280';
+          ctx.font = '10px sans-serif';
+          ctx.textAlign = 'right';
+          ctx.fillText((10 - i).toString(), margin - 10, y + 4);
         }
-      });
-      
-      ctx.lineTo(margin + (processedData.length - 1) * pointSpacing, height - margin);
-      ctx.lineTo(margin, height - margin);
-      ctx.closePath();
-      ctx.fill();
-      
-      // 绘制数据点和连线
-      ctx.strokeStyle = '#3b82f6';
-      ctx.lineWidth = 3;
-      ctx.fillStyle = '#3b82f6';
-      
-      // 绘制连线
-      ctx.beginPath();
-      processedData.forEach((item, index) => {
-        const x = margin + index * pointSpacing;
-        const y = margin + (10 - item.score) / 10 * chartHeight;
         
-        if (index === 0) {
-          ctx.moveTo(x, y);
-        } else {
-          ctx.lineTo(x, y);
-        }
-      });
-      ctx.stroke();
-      
-      // 绘制数据点
-      processedData.forEach((item, index) => {
-        const x = margin + index * pointSpacing;
-        const y = margin + (10 - item.score) / 10 * chartHeight;
-        
-        // 绘制点的外圈
-        ctx.fillStyle = '#ffffff';
+        // 绘制折线
         ctx.strokeStyle = '#3b82f6';
         ctx.lineWidth = 2;
         ctx.beginPath();
-        ctx.arc(x, y, 6, 0, Math.PI * 2);
-        ctx.fill();
+        
+        chartData.forEach((item, index) => {
+          const x = margin + index * pointSpacing;
+          const y = margin + (10 - item.score) / 10 * chartHeight;
+          
+          if (index === 0) {
+            ctx.moveTo(x, y);
+          } else {
+            ctx.lineTo(x, y);
+          }
+        });
         ctx.stroke();
         
-        // 绘制点的内圈
-        ctx.fillStyle = '#3b82f6';
-        ctx.beginPath();
-        ctx.arc(x, y, 3, 0, Math.PI * 2);
-        ctx.fill();
+        // 绘制数据点
+        chartData.forEach((item, index) => {
+          const x = margin + index * pointSpacing;
+          const y = margin + (10 - item.score) / 10 * chartHeight;
+          
+          // 绘制点
+          ctx.fillStyle = '#3b82f6';
+          ctx.beginPath();
+          ctx.arc(x, y, 4, 0, Math.PI * 2);
+          ctx.fill();
+          
+          // 绘制X轴刻度标签（每隔一个点绘制一次）
+          if (true) {
+            const date = new Date(item.date);
+            ctx.fillStyle = '#6b7280';
+            ctx.font = '10px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(`${date.getMonth() + 1}/${date.getDate()}`, x, height - margin + 20);
+          }
+        });
         
-        // 绘制日期标签
-        const date = new Date(item.date);
-        ctx.fillStyle = '#6b7280';
-        ctx.font = '10px sans-serif';
-        ctx.textAlign = 'center';
-        const month = date.getMonth() + 1;
-        const day = date.getDate();
-        ctx.fillText(`${month}/${day}`, x, height - margin + 15);
+        console.log('绘制完成');
       });
-    });
+    } catch (error) {
+      console.error('绘制过程中出错:', error);
+    }
   },
 
   /**
