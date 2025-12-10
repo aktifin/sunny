@@ -1,0 +1,30 @@
+/* 页面级样式文件 */
+
+/* 日历单元格样式 */
+.calendar-cell {
+  transition: all 0.2s ease;
+}
+
+.calendar-cell:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+}
+
+/* 任务按钮样式 */
+.task-btn {
+  transition: all 0.2s ease;
+}
+
+.task-btn:active {
+  transform: scale(0.98);
+}
+
+/* 统计卡片样式 */
+.stat-card {
+  transition: all 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}

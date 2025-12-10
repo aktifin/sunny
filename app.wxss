@@ -1,0 +1,393 @@
+/* app.wxss */
+
+/* 重置样式 */
+page {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: #fdf8f6; /* Warm neutral background */
+  color: #44403c; /* Stone 700 */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 布局类 */
+.container {
+  max-width: 768px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* 间距类 */
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.mb-6 {
+  margin-bottom: 1.5rem;
+}
+
+.mb-8 {
+  margin-bottom: 2rem;
+}
+
+.gap-2 {
+  gap: 0.5rem;
+}
+
+.gap-3 {
+  gap: 0.75rem;
+}
+
+.gap-4 {
+  gap: 1rem;
+}
+
+.gap-6 {
+  gap: 1.5rem;
+}
+
+/* 尺寸类 */
+.w-full {
+  width: 100%;
+}
+
+.w-12 {
+  width: 96rpx;
+}
+
+.w-6 {
+  width: 48rpx;
+}
+
+.w-3 {
+  width: 24rpx;
+}
+
+.h-12 {
+  height: 96rpx;
+}
+
+.h-6 {
+  height: 48rpx;
+}
+
+.h-3 {
+  height: 24rpx;
+}
+
+/* 字体类 */
+.font-bold {
+  font-weight: 700;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.text-xl {
+  font-size: 20px;
+}
+
+.text-lg {
+  font-size: 18px;
+}
+
+.text-base {
+  font-size: 16px;
+}
+
+.text-sm {
+  font-size: 14px;
+}
+
+.text-xs {
+  font-size: 12px;
+}
+
+/* 颜色类 */
+.text-stone-700 {
+  color: #44403c;
+}
+
+.text-stone-500 {
+  color: #6b7280;
+}
+
+.text-stone-400 {
+  color: #9ca3af;
+}
+
+.text-stone-300 {
+  color: #d1d5db;
+}
+
+.text-orange-700 {
+  color: #9a3412;
+}
+
+.text-orange-500 {
+  color: #f97316;
+}
+
+.text-orange-400 {
+  color: #fb923c;
+}
+
+.text-orange-300 {
+  color: #fdba74;
+}
+
+.text-orange-200 {
+  color: #fed7aa;
+}
+
+.text-orange-100 {
+  color: #ffedd5;
+}
+
+.text-orange-50 {
+  color: #fff7ed;
+}
+
+.text-blue-500 {
+  color: #3b82f6;
+}
+
+.text-blue-300 {
+  color: #93c5fd;
+}
+
+.text-green-500 {
+  color: #22c55e;
+}
+
+.text-green-300 {
+  color: #86efac;
+}
+
+.bg-white {
+  background-color: #ffffff;
+}
+
+.bg-stone-100 {
+  background-color: #f5f5f4;
+}
+
+.bg-stone-50 {
+  background-color: #fafaf9;
+}
+
+.bg-orange-50 {
+  background-color: #fff7ed;
+}
+
+.bg-orange-100 {
+  background-color: #ffedd5;
+}
+
+/* 边框和圆角类 */
+.border {
+  border: 1px solid #e5e7eb;
+}
+
+.border-2 {
+  border: 2px solid #e5e7eb;
+}
+
+.border-stone-100 {
+  border-color: #f5f5f4;
+}
+
+.border-stone-200 {
+  border-color: #e7e5e4;
+}
+
+.border-orange-200 {
+  border-color: #fed7aa;
+}
+
+.border-orange-500 {
+  border-color: #f97316;
+}
+
+.rounded {
+  border-radius: 0.25rem;
+}
+
+.rounded-xl {
+  border-radius: 0.75rem;
+}
+
+.rounded-2xl {
+  border-radius: 1rem;
+}
+
+.rounded-full {
+  border-radius: 9999px;
+}
+
+/* 阴影类 */
+.shadow-sm {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.shadow-md {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+
+/* 背景色类 */
+.bg-orange-500 {
+  background-color: #f97316;
+}
+
+.bg-blue-400 {
+  background-color: #93c5fd;
+}
+
+.bg-green-500 {
+  background-color: #22c55e;
+}
+
+/* 按钮相关样式 */
+button {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  outline: none;
+}
+
+button::after {
+  border: none;
+}
+
+/* 强制不换行 */
+.whitespace-nowrap {
+  white-space: nowrap;
+}
+
+/* 描边样式 */
+.ring-4 {
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.5);
+}
+
+.ring-red-500 {
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.5);
+}
+
+.ring-offset-2 {
+  margin: 2px;
+}
+
+.z-10 {
+  z-index: 10;
+}
+
+/* Chart Container Styling - Strict adherence to requirements */
+.chart-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 300px;
+  max-height: 650px;
+}
+
+@media (min-width: 768px) {
+  .chart-container {
+    height: 650px;
+  }
+}
+
+/* Custom utility for calendar grid aspect ratio */
+.aspect-square {
+  aspect-ratio: 1 / 1;
+}
+
+/* Task button transitions */
+.task-btn {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.task-btn:active {
+  transform: scale(0.98);
+}
+
+/* Hide scrollbar for clean UI but allow scroll */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Grid layout utilities */
+.grid {
+  display: grid;
+}
+
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid-cols-7 {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+/* Custom styles for task buttons */
+.task-btn {
+  transition: all 0.2s ease;
+}
+
+.task-btn .w-12 {
+  width: 96rpx;
+}
+
+.task-btn .w-6 {
+  width: 48rpx;
+}
+
+/* Hide scrollbar for webkit browsers */
+/* Hide scrollbar for IE, Edge and Firefox */
+

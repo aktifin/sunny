@@ -1,0 +1,14 @@
+{
+  "pages": [
+    "pages/index/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fdf8f6",
+    "navigationBarTitleText": "小小英雄成长日历",
+    "navigationBarTextStyle": "black"
+  },
+  "style": "v2",
+  "usingComponents": {},
+  "sitemapLocation": "sitemap.json"
+}
