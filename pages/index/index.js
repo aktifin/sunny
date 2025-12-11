@@ -270,24 +270,16 @@ Page({
     // 获取当月天数
     const daysInMonth = lastDay.getDate();
     
-    // 生成上个月的天数
-    const prevMonth = month === 0 ? 11 : month - 1;
-    const prevYear = month === 0 ? year - 1 : year;
-    const prevMonthLastDay = new Date(prevYear, month, 0).getDate();
-    
-    for (let i = firstDayOfWeek - 1; i >= 0; i--) {
-      const day = prevMonthLastDay - i;
-      const dateKey = `${prevYear}-${String(prevMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-      const isToday = false;
-      const score = this.getScoreForDate(dateKey);
-      
+    // 生成空白格子以对齐到正确的星期几
+    for (let i = 0; i < firstDayOfWeek; i++) {
       calendarDays.push({
-        dateKey: dateKey,
-        day: day,
-        score: score,
-        isToday: isToday,
-        classes: 'bg-stone-50 text-stone-300',
-        isFutureDate: true
+        dateKey: null,
+        day: null,
+        score: null,
+        isToday: false,
+        classes: 'bg-transparent border-0 cursor-default',
+        isFutureDate: true,
+        isEmpty: true
       });
     }
     
@@ -345,29 +337,12 @@ Page({
         score: score,
         isToday: isToday,
         classes: cellClass,
-        isFutureDate: isFutureDate
+        isFutureDate: isFutureDate,
+        isEmpty: false
       });
     }
     
-    // 生成下个月的天数
-    const nextMonth = month === 11 ? 0 : month + 1;
-    const nextYear = month === 11 ? year + 1 : year;
-    const remainingDays = 42 - calendarDays.length;
-    
-    for (let day = 1; day <= remainingDays; day++) {
-      const dateKey = `${nextYear}-${String(nextMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-      const isToday = false;
-      const score = null;
-      
-      calendarDays.push({
-        dateKey: dateKey,
-        day: day,
-        score: score,
-        isToday: isToday,
-        classes: 'bg-stone-50 text-stone-300',
-        isFutureDate: true
-      });
-    }
+    // 不再生成下个月的日期，只显示当月
     
     // 更新数据
     this.setData({

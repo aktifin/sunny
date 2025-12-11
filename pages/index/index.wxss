@@ -1,30 +1,270 @@
 /* 页面级样式文件 */
 
-/* 日历单元格样式 */
+/* ========== 卡片样式 ========== */
+.card-base {
+  background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(229, 231, 235, 0.8);
+  border-radius: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-base:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.card-base:hover:before {
+  left: 100%;
+}
+
+/* ========== 日历单元格样式 ========== */
 .calendar-cell {
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  border-radius: 0.5rem;
+  border: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0;
+  padding: 2px;
+  width: 100%;
+  height: 44px;
+  font-size: 13px;
+  line-height: 1;
 }
 
 .calendar-cell:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 20px -5px rgba(249, 115, 22, 0.15);
+  border-color: rgba(249, 115, 22, 0.2);
 }
 
-/* 任务按钮样式 */
+.calendar-cell:active {
+  transform: translateY(-1px) scale(1.01);
+  box-shadow: 0 6px 10px -3px rgba(249, 115, 22, 0.1);
+}
+
+/* ========== 任务按钮样式 ========== */
 .task-btn {
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  will-change: transform, box-shadow;
+}
+
+.task-btn:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  transition: left 0.4s;
+}
+
+.task-btn:hover:before {
+  left: 100%;
+}
+
+.task-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 12px -2px rgba(249, 115, 22, 0.1);
 }
 
 .task-btn:active {
-  transform: scale(0.98);
+  transform: scale(0.98) translateY(-1px);
 }
 
-/* 统计卡片样式 */
+/* 完成状态的任务按钮增强效果 */
+.task-btn.task-completed {
+  background: linear-gradient(135deg, #fff7ed 0%, #ffe4cc 100%);
+  box-shadow: 0 4px 8px -1px rgba(249, 115, 22, 0.1), inset 0 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+.task-btn.task-completed:hover {
+  box-shadow: 0 8px 16px -2px rgba(249, 115, 22, 0.15), inset 0 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+/* ========== 统计卡片样式 ========== */
 .stat-card {
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 100%);
+  backdrop-filter: blur(5px);
 }
 
 .stat-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+  box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.15);
 }
+
+.stat-card:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #f97316, #fb923c);
+  transition: all 0.3s;
+}
+
+/* ========== 进度指示器 ========== */
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #f97316, #fb923c);
+  border-radius: 2px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ========== 头部区域优化 ========== */
+.header-section {
+  text-align: center;
+  margin-bottom: 2rem;
+  animation: slideDown 0.6s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header-section image {
+  animation: scaleIn 0.6s ease-out 0.1s both;
+  filter: drop-shadow(0 4px 8px rgba(249, 115, 22, 0.1));
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ========== 色彩增强 ========== */
+.text-orange-600 {
+  background: linear-gradient(135deg, #ea580c, #dc2626);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+/* ========== 响应式优化 ========== */
+#calendar-grid {
+  gap: 0.5rem !important;
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .grid-cols-3 {
+    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+    gap: 0.5rem;
+  }
+  
+  #calendar-grid {
+    gap: 0.25rem !important;
+  }
+  
+  .calendar-cell {
+    height: 36px;
+  }
+  
+  .task-btn {
+    padding: 0.75rem !important;
+  }
+  
+  .stat-card {
+    padding: 1rem !important;
+  }
+}
+
+/* ========== 动画 keyframes ========== */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-2px);
+  }
+  75% {
+    transform: translateX(2px);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-bounce {
+  animation: bounce 1s infinite;
+}
+
+/* ========== 平滑滚动 ========== */
+view, button, scroll-view {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ========== 加载状态 ========== */
+.loading {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ========== 过渡优化 ========== */
+.smooth-transition {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fast-transition {
+  transition: all 0.15s ease-out;
+}
+

@@ -1,7 +1,8 @@
 {
   "description": "小小英雄成长日历",
   "packOptions": {
-    "ignore": []
+    "ignore": [],
+    "include": []
   },
   "setting": {
     "urlCheck": true,
@@ -28,18 +29,26 @@
       "ignore": [],
       "disablePlugins": [],
       "outputPath": ""
-    }
+    },
+    "compileWorklet": false,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true,
+    "minifyWXML": true,
+    "localPlugins": false,
+    "disableUseStrict": false,
+    "useCompilerPlugins": false,
+    "condition": false,
+    "swc": false,
+    "disableSWC": true
   },
   "compileType": "miniprogram",
   "libVersion": "2.19.4",
-  "appid": "wx7d8e6a5c2f7b4c1d",
+  "appid": "wxfea51ffd218119b9",
   "projectname": "little-hero-growth-calendar",
-  "debugOptions": {
-    "hidedInDevtools": []
-  },
   "isGameTourist": false,
   "gameType": "",
-  "cloudfunctionTemplateRoot": "cloudfunctions/miniprogram_func",
+  "cloudfunctionTemplateRoot": "cloudfunctions/miniprogram_func/",
   "condition": {
     "search": {
       "list": []
@@ -59,5 +68,7 @@
         }
       ]
     }
-  }
+  },
+  "simulatorPluginLibVersion": {},
+  "editorSetting": {}
 }
