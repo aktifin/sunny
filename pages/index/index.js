@@ -498,19 +498,14 @@ Page({
    * 绘制积分增长曲线
    */
   drawChart() {
-    console.log('开始绘制积分增长曲线');
-    
     try {
       // 对于type="2d"的canvas，需要使用新的Canvas 2D API
       const query = wx.createSelectorQuery();
       query.select('#growthChart').fields({ node: true, size: true });
       query.exec((res) => {
         if (!res || !res[0]) {
-          console.error('Canvas元素获取失败');
           return;
         }
-        
-        console.log('获取Canvas元素成功', res[0]);
         
         const canvas = res[0].node;
         const ctx = canvas.getContext('2d');
@@ -520,8 +515,6 @@ Page({
         // 设置Canvas尺寸
         canvas.width = width;
         canvas.height = height;
-        
-        console.log('Canvas尺寸:', width, height);
         
         // 清空画布
         ctx.clearRect(0, 0, width, height);
@@ -539,11 +532,8 @@ Page({
           ctx.font = '14px sans-serif';
           ctx.textAlign = 'center';
           ctx.fillText('暂无数据', width / 2, height / 2);
-          console.log('绘制提示文字');
           return;
         }
-        
-        console.log('图表数据:', chartData);
         
         // 设置图表边距
         const margin = 40;
@@ -620,11 +610,9 @@ Page({
             ctx.fillText(`${date.getMonth() + 1}/${date.getDate()}`, x, height - margin + 20);
           }
         });
-        
-        console.log('绘制完成');
       });
     } catch (error) {
-      console.error('绘制过程中出错:', error);
+      // 错误处理（静默）
     }
   },
 

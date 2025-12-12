@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 跨域隔离头，防止 SharedArrayBuffer 警告 -->
+    <meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin">
+    <meta http-equiv="Cross-Origin-Embedder-Policy" content="require-corp">
     <!-- 自定义应用名称（优先于 <title>） -->
     <meta name="apple-mobile-web-app-title" content="成长日历">
     <!-- 自定义应用图标（支持多种尺寸） -->
